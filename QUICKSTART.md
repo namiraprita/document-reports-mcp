@@ -1,6 +1,6 @@
 # Quick Start Guide - World Bank MCP Server
 
-Get your World Bank MCP server running in 5 minutes! 🚀
+Get your World Bank MCP server running in 5 minutes!
 
 ## Step 1: Install Dependencies
 
@@ -83,7 +83,7 @@ cd  # Copy the full path
 
 2. **Reopen Claude Desktop**
 
-3. **Look for the 🔌 icon** in the interface (usually bottom-right)
+3. **Look for the connection icon** in the interface (usually bottom-right)
    - Click it to see connected servers
    - "worldbank" should appear in the list
 
@@ -113,7 +113,7 @@ What types of documents are available in the World Bank database?
 
 ## Troubleshooting
 
-### ❌ Server not showing in Claude Desktop
+### Server not showing in Claude Desktop
 
 **Check 1: Config file location**
 ```bash
@@ -151,7 +151,7 @@ dir C:\path\to\worldbank_mcp.py  # Windows
 - Wait 5 seconds
 - Reopen
 
-### ❌ "Module not found" errors
+### "Module not found" errors
 
 ```bash
 # Install dependencies again
@@ -170,14 +170,14 @@ pip install -r requirements.txt
 # "command": "/path/to/venv/bin/python"
 ```
 
-### ❌ API returns no results
+### API returns no results
 
 This is usually fine! Try:
 - Different search terms
 - Broader queries
 - Use `worldbank_explore_facets` to see what's available
 
-### ❌ Server stops responding
+### Server stops responding
 
 1. Check Claude Desktop logs (Help → Debug → Show Logs)
 2. Restart Claude Desktop
@@ -185,13 +185,13 @@ This is usually fine! Try:
 
 ## What to Expect
 
-### ✅ Server is working when:
-- 🔌 icon shows "worldbank" in connected servers
+### Server is working when:
+- Connection icon shows "worldbank" in connected servers
 - Claude can answer questions about World Bank documents
 - You see tool calls like `worldbank_search_documents` in responses
 
-### ⚠️ Server needs attention when:
-- No 🔌 icon appears
+### Server needs attention when:
+- No connection icon appears
 - Claude says "I don't have access to that tool"
 - Connection errors in Claude Desktop logs
 
@@ -242,4 +242,4 @@ tell me what types of documents are most common for each
 
 ---
 
-Enjoy your new World Bank research assistant! 🌍📚
+Enjoy your new World Bank research assistant!

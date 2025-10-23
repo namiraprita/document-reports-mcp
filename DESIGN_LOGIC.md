@@ -2,7 +2,7 @@
 
 This document explains the **why** behind every design decision in the World Bank MCP server, following Anthropic's MCP builder skills.
 
-## 🎯 Core Design Principles
+## Core Design Principles
 
 ### 1. **Agent-Centric, Not API-Centric**
 
@@ -75,7 +75,7 @@ def _truncate_if_needed(content: str, data: List[Any]) -> str:
 - JSON is better when LLM needs to process data programmatically
 - We support both, defaulting to markdown
 
-## 🏗️ Architecture Decisions
+## Architecture Decisions
 
 ### Why 4 Tools (Not 1, Not 20)?
 
@@ -109,7 +109,7 @@ def _truncate_if_needed(content: str, data: List[Any]) -> str:
 - Combining them would make parameters confusing
 - Separation allows for focused docstrings
 
-## 🔧 Code Architecture
+## Code Architecture
 
 ### DRY Principle: Shared Utilities
 
@@ -206,7 +206,7 @@ LLMs can't just "figure it out" - they need:
 
 This turns errors into **learning opportunities** for the LLM.
 
-## 📊 Response Format Strategy
+## Response Format Strategy
 
 ### Markdown for Humans, JSON for Machines
 
@@ -257,7 +257,7 @@ World Bank has millions of documents. Can't return all at once.
 - LLM knows how to get more ("use offset=20")
 - Clear stopping condition ("has_more=false")
 
-## 🛡️ Tool Annotations Explained
+## Tool Annotations Explained
 
 ```python
 @mcp.tool(
@@ -293,7 +293,7 @@ World Bank has millions of documents. Can't return all at once.
 - Results may vary over time as data changes
 - Requires internet connection
 
-## 🔍 Naming Strategy
+## Naming Strategy
 
 ### Server Name: `worldbank_mcp`
 
@@ -324,7 +324,7 @@ World Bank has millions of documents. Can't return all at once.
 
 Users often run multiple MCP servers. Prefixes prevent naming conflicts.
 
-## 🧪 Parameter Design Philosophy
+## Parameter Design Philosophy
 
 ### Required vs Optional
 
@@ -367,7 +367,7 @@ limit: int = Field(
 - `ge=1`: Can't request 0 or negative results
 - `le=100`: Protects context window, API fair use
 
-## 🚀 Performance Optimizations
+## Performance Optimizations
 
 ### 1. Async Everything
 
@@ -408,7 +408,7 @@ if len(result) > CHARACTER_LIMIT:
 - Leaves room for other context
 - Rarely hit with reasonable limits (20-50 results)
 
-## 📚 Documentation Strategy
+## Documentation Strategy
 
 ### Triple Documentation Approach
 
@@ -436,7 +436,7 @@ async def worldbank_search_documents(params: SearchInput) -> str:
 - Examples and use cases
 - Troubleshooting
 
-## 🎓 Design Lessons Applied
+## Design Lessons Applied
 
 ### From MCP Best Practices
 
@@ -463,7 +463,7 @@ async def worldbank_search_documents(params: SearchInput) -> str:
 ✅ **DRY principle:** Shared utilities, no duplication
 ✅ **Error handling:** Specific exceptions, clear messages
 
-## 🔮 Future Enhancements (Ideas)
+## Future Enhancements (Ideas)
 
 If you wanted to expand this server:
 
@@ -492,7 +492,7 @@ If you wanted to expand this server:
    - Allow direct URI access
    - Template-based retrieval
 
-## 📖 Learning Resources
+## Learning Resources
 
 To understand why we made these choices:
 
@@ -515,9 +515,9 @@ To understand why we made these choices:
 7. **Follow standards** → MCP best practices, Python patterns
 
 This creates an MCP server that's:
-- ✨ Easy for LLMs to use
-- 🔧 Easy for developers to maintain
-- 📚 Easy for users to understand
-- 🚀 Ready for production use
+- Easy for LLMs to use
+- Easy for developers to maintain
+- Easy for users to understand
+- Ready for production use
 
-Built with these principles, your MCP server becomes a natural extension of the LLM's capabilities! 🎯
+Built with these principles, your MCP server becomes a natural extension of the LLM's capabilities!
