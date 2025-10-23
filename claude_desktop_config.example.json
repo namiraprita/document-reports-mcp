@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "worldbank": {
+      "command": "python",
+      "args": [
+        "/absolute/path/to/worldbank_mcp.py"
+      ]
+    }
+  }
+}

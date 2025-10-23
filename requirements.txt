@@ -1,0 +1,13 @@
+# World Bank MCP Server Dependencies
+
+# MCP Python SDK - Official Model Context Protocol implementation
+# Provides FastMCP framework for building MCP servers
+mcp>=1.0.0
+
+# HTTP client library - Used for making async API requests to World Bank API
+# We use httpx instead of requests for async/await support
+httpx>=0.27.0
+
+# Data validation library - Used for input validation and schema generation
+# Pydantic v2 provides automatic validation, type checking, and JSON schema generation
+pydantic>=2.0.0
