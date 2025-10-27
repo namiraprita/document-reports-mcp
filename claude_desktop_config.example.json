@@ -1,10 +1,12 @@
 {
   "mcpServers": {
-    "worldbank": {
-      "command": "python",
+    "worldbank-dnr": {
+      "command": "uv",
       "args": [
-        "/absolute/path/to/worldbank_mcp.py"
-      ]
+        "run",
+        "/absolute/path/to/document-reports-mcp/start_server_claude.py"
+      ],
+      "cwd": "/absolute/path/to/document-reports-mcp"
     }
   }
 }

@@ -4,9 +4,19 @@ Get your World Bank MCP server running in 5 minutes!
 
 ## Step 1: Install Dependencies
 
+### With uv (Recommended)
 ```bash
-# Navigate to the directory containing worldbank_mcp.py
-cd /path/to/worldbank-mcp
+# Navigate to the directory containing worldbank_dnr_mcp.py
+cd /path/to/document-reports-mcp
+
+# Install dependencies with uv
+uv sync
+```
+
+### With pip (Alternative)
+```bash
+# Navigate to the directory
+cd /path/to/document-reports-mcp
 
 # Install required Python packages
 pip install -r requirements.txt
@@ -16,12 +26,22 @@ pip install -r requirements.txt
 
 Before integrating with Claude Desktop, verify the server runs:
 
+### With uv (Recommended)
 ```bash
 # Check Python syntax
-python -m py_compile worldbank_mcp.py
+python -m py_compile worldbank_dnr_mcp.py
+
+# Test that uv can run the server
+uv run worldbank_dnr_mcp.py --help
+```
+
+### With python (Alternative)
+```bash
+# Check Python syntax
+python -m py_compile worldbank_dnr_mcp.py
 
 # Run with --help to see it loads
-python worldbank_mcp.py --help
+python worldbank_dnr_mcp.py --help
 ```
 
 **Note:** The server will appear to "hang" when run directly - this is expected! It's waiting for MCP protocol messages via stdin. Press Ctrl+C to exit.
@@ -35,37 +55,67 @@ python worldbank_mcp.py --help
 ### Get the absolute path:
 ```bash
 # macOS/Linux
-pwd  # Copy the full path, then add /worldbank_mcp.py
-# Example: /Users/yourname/projects/worldbank-mcp/worldbank_mcp.py
+pwd  # Copy the full path
+# Example: /Users/yourname/projects/document-reports-mcp
 
 # Windows
 cd  # Copy the full path
-# Example: C:\Users\yourname\projects\worldbank-mcp\worldbank_mcp.py
+# Example: C:\Users\yourname\projects\document-reports-mcp
 ```
 
 ### Edit the config:
+
+#### Option 1: Using uv (Recommended)
 ```json
 {
   "mcpServers": {
-    "worldbank": {
+    "worldbank-dnr": {
+      "command": "uv",
+      "args": [
+        "run",
+        "/Users/yourname/projects/document-reports-mcp/worldbank_dnr_mcp.py"
+      ],
+      "cwd": "/Users/yourname/projects/document-reports-mcp"
+    }
+  }
+}
+```
+
+#### Option 2: Using python (Alternative)
+```json
+{
+  "mcpServers": {
+    "worldbank-dnr": {
       "command": "python",
       "args": [
-        "/Users/yourname/projects/worldbank-mcp/worldbank_mcp.py"
+        "/Users/yourname/projects/document-reports-mcp/worldbank_dnr_mcp.py"
       ]
     }
   }
 }
 ```
 
-**Replace the path with your actual path!**
+**Replace the paths with your actual paths!**
 
 ### If you have multiple MCP servers:
 ```json
 {
   "mcpServers": {
-    "worldbank": {
-      "command": "python",
-      "args": ["/path/to/worldbank_mcp.py"]
+    "worldbank-dnr": {
+      "command": "uv",
+      "args": [
+        "run",
+        "/path/to/document-reports-mcp/worldbank_dnr_mcp.py"
+      ],
+      "cwd": "/path/to/document-reports-mcp"
+    },
+    "data360": {
+      "command": "uv",
+      "args": [
+        "run",
+        "/path/to/data360-mcp/server_stdio.py"
+      ],
+      "cwd": "/path/to/data360-mcp"
     },
     "other-server": {
       "command": "node",
@@ -129,12 +179,17 @@ type %APPDATA%\Claude\claude_desktop_config.json
 - Common mistake: Missing comma between servers
 - Common mistake: Wrong quote type (use " not ')
 
-**Check 3: Python path**
+**Check 3: Command availability**
 ```bash
-# Verify Python is in PATH
+# If using uv, verify it's installed
+uv --version
+
+# If using python, verify Python is in PATH
 python --version
 
-# If not, use full path to Python:
+# If not found:
+# Install uv: curl -LsSf https://astral.sh/uv/install.sh | sh
+# Or use full path to Python:
 # macOS: /usr/local/bin/python3 or /opt/homebrew/bin/python3
 # Windows: C:\Python310\python.exe
 ```
@@ -153,6 +208,13 @@ dir C:\path\to\worldbank_mcp.py  # Windows
 
 ### "Module not found" errors
 
+#### With uv (Recommended)
+```bash
+cd /path/to/document-reports-mcp
+uv sync
+```
+
+#### With pip (Alternative)
 ```bash
 # Install dependencies again
 pip install mcp httpx pydantic

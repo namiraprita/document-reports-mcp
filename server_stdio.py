@@ -1,10 +1,12 @@
 #!/usr/bin/env -S uv run
 """
-World Bank Documents & Reports MCP Server
+World Bank Documents & Reports MCP Server (STDIO Transport)
 
 This MCP server provides tools to search and retrieve documents from the World Bank's
 Documents & Reports API. It enables LLMs to find research papers, reports, project
 documents, and other publications from the World Bank.
+
+This version uses STDIO transport for Claude Desktop and CLI clients.
 
 API Documentation: https://documents.worldbank.org/en/publication/documents-reports/api
 """
@@ -1039,7 +1041,7 @@ async def worldbank_search_by_project(params: WorldBankProjectSearchInput) -> st
 # ============================================================================
 
 if __name__ == "__main__":
-    # Run the MCP server using stdio transport (default)
-    # This makes the server compatible with Claude Desktop and other MCP clients
+    # Run the MCP server using stdio transport
+    # This transport is used by Claude Desktop and other CLI MCP clients
     # that communicate via standard input/output
-    mcp.run()
+    mcp.run(transport="stdio")

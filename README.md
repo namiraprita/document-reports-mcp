@@ -123,10 +123,16 @@ Find all documents associated with a specific World Bank project.
 
 ### Prerequisites
 - Python 3.10 or higher
-- pip (Python package manager)
+- [uv](https://docs.astral.sh/uv/) package manager (recommended)
 
 ### Install Dependencies
 
+#### With uv (Recommended)
+```bash
+uv sync
+```
+
+#### With pip (Alternative)
 ```bash
 pip install -r requirements.txt
 ```
@@ -146,18 +152,37 @@ Add the server to your Claude Desktop configuration file:
 **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
 **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
 
+#### Using uv (Recommended)
 ```json
 {
   "mcpServers": {
-    "worldbank": {
-      "command": "python",
-      "args": ["/absolute/path/to/worldbank_mcp.py"]
+    "worldbank-dnr": {
+      "command": "uv",
+      "args": [
+        "run",
+        "/absolute/path/to/document-reports-mcp/worldbank_dnr_mcp.py"
+      ],
+      "cwd": "/absolute/path/to/document-reports-mcp"
     }
   }
 }
 ```
 
-**Important:** Replace `/absolute/path/to/worldbank_mcp.py` with the actual full path to the file.
+#### Using python (Alternative)
+```json
+{
+  "mcpServers": {
+    "worldbank-dnr": {
+      "command": "python",
+      "args": ["/absolute/path/to/worldbank_dnr_mcp.py"]
+    }
+  }
+}
+```
+
+**Important:** 
+- Replace `/absolute/path/to/document-reports-mcp` with the actual full path to your project directory
+- The `cwd` parameter is required when using `uv`
 
 After adding the configuration:
 1. Save the file

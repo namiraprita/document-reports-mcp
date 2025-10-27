@@ -1,10 +1,12 @@
 #!/usr/bin/env -S uv run
 """
-World Bank Documents & Reports MCP Server
+World Bank Documents & Reports MCP Server (SSE Transport)
 
 This MCP server provides tools to search and retrieve documents from the World Bank's
 Documents & Reports API. It enables LLMs to find research papers, reports, project
 documents, and other publications from the World Bank.
+
+This version uses SSE (Server-Sent Events) transport for web and API clients.
 
 API Documentation: https://documents.worldbank.org/en/publication/documents-reports/api
 """
@@ -24,7 +26,8 @@ from mcp.server.fastmcp import FastMCP
 
 # Server follows naming convention: {service}_mcp
 # This makes it clear which service we're integrating with
-mcp = FastMCP("worldbank_mcp")
+# For SSE transport, we specify a port number
+mcp = FastMCP("worldbank_mcp", port=8002)
 
 # World Bank API base URL
 API_BASE_URL = "https://search.worldbank.org/api/v3/wds"
@@ -1039,7 +1042,7 @@ async def worldbank_search_by_project(params: WorldBankProjectSearchInput) -> st
 # ============================================================================
 
 if __name__ == "__main__":
-    # Run the MCP server using stdio transport (default)
-    # This makes the server compatible with Claude Desktop and other MCP clients
-    # that communicate via standard input/output
-    mcp.run()
+    # Run the MCP server using SSE (Server-Sent Events) transport
+    # This transport is used for web and API clients
+    # The server will listen on the configured port (default: 8002)
+    mcp.run(transport="sse")
