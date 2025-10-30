@@ -301,12 +301,32 @@ def _format_document_markdown(doc: Dict[str, Any]) -> str:
         Markdown-formatted string
     """
     # Extract key fields with fallbacks
-    title = doc.get('display_title', doc.get('repnme', 'Untitled'))
+    # Handle display_title first, then try repnme which might be a dict or string
+    repnme = doc.get('repnme', {})
+    if isinstance(repnme, dict):
+        repnme = repnme.get('repnme', 'Untitled')
+    title = doc.get('display_title', repnme)
+    
     doc_date = doc.get('docdt', 'N/A')
     doc_type = doc.get('docty', 'N/A')
     doc_id = doc.get('id', doc.get('guid', 'N/A'))
-    countries = ', '.join(doc.get('count', [])) if doc.get('count') else 'N/A'
-    abstract = doc.get('abstracts', 'No abstract available')
+    
+    # Handle count field - can be string or list
+    count = doc.get('count', 'N/A')
+    if isinstance(count, list):
+        countries = ', '.join(count)
+    elif isinstance(count, str):
+        countries = count
+    else:
+        countries = 'N/A'
+    
+    # Handle abstracts - can be string or dict with 'cdata!' key
+    abstracts = doc.get('abstracts', 'No abstract available')
+    if isinstance(abstracts, dict):
+        abstract = abstracts.get('cdata!', abstracts.get('abstract', 'No abstract available'))
+    else:
+        abstract = abstracts
+    
     pdf_url = doc.get('pdfurl', doc.get('url', 'N/A'))
     report_num = doc.get('repnb', 'N/A')
     
@@ -350,15 +370,36 @@ def _format_document_json(doc: Dict[str, Any]) -> Dict[str, Any]:
     Returns:
         Structured dictionary with document data
     """
+    # Handle repnme field - can be dict or string
+    repnme = doc.get('repnme', {})
+    if isinstance(repnme, dict):
+        repnme = repnme.get('repnme', None)
+    
+    # Handle count field - can be string or list
+    count = doc.get('count', [])
+    if isinstance(count, str):
+        countries = [count]  # Convert string to list for consistent output
+    elif isinstance(count, list):
+        countries = count
+    else:
+        countries = []
+    
+    # Handle abstracts - can be string or dict with 'cdata!' key
+    abstracts = doc.get('abstracts', None)
+    if isinstance(abstracts, dict):
+        abstract = abstracts.get('cdata!', abstracts.get('abstract', None))
+    else:
+        abstract = abstracts
+    
     return {
         "id": doc.get('id', doc.get('guid')),
-        "title": doc.get('display_title', doc.get('repnme')),
+        "title": doc.get('display_title', repnme),
         "report_number": doc.get('repnb'),
         "document_type": doc.get('docty'),
         "document_date": doc.get('docdt'),
-        "countries": doc.get('count', []),
+        "countries": countries,
         "languages": doc.get('lang', []),
-        "abstract": doc.get('abstracts'),
+        "abstract": abstract,
         "major_themes": doc.get('majtheme', []),
         "topics": doc.get('topic', []),
         "pdf_url": doc.get('pdfurl'),
@@ -569,9 +610,11 @@ async def worldbank_search_documents(params: WorldBankSearchInput) -> str:
         response = await _make_api_request(query_params)
         
         # Extract results
+        # The API returns documents as a dictionary where keys are document IDs (e.g., "D33234291")
+        # We need to extract the values and filter out the 'facets' key if present
         documents = response.get('documents', {})
-        docs_list = documents.get('docs', [])
-        total = documents.get('numFound', 0)
+        docs_list = [doc for key, doc in documents.items() if key != 'facets' and isinstance(doc, dict)]
+        total = response.get('total', 0)  # Total is at the top level, not inside documents
         
         # Handle no results case
         if total == 0:
@@ -702,8 +745,9 @@ async def worldbank_get_document_details(params: WorldBankDocumentDetailsInput) 
         response = await _make_api_request(query_params)
         
         # Extract document
+        # The API returns documents as a dictionary where keys are document IDs
         documents = response.get('documents', {})
-        docs_list = documents.get('docs', [])
+        docs_list = [doc for key, doc in documents.items() if key != 'facets' and isinstance(doc, dict)]
         
         if not docs_list:
             return (
@@ -963,9 +1007,10 @@ async def worldbank_search_by_project(params: WorldBankProjectSearchInput) -> st
         response = await _make_api_request(query_params)
         
         # Extract results
+        # The API returns documents as a dictionary where keys are document IDs
         documents = response.get('documents', {})
-        docs_list = documents.get('docs', [])
-        total = documents.get('numFound', 0)
+        docs_list = [doc for key, doc in documents.items() if key != 'facets' and isinstance(doc, dict)]
+        total = response.get('total', 0)  # Total is at the top level
         
         # Handle no results
         if total == 0:

@@ -571,9 +571,11 @@ async def worldbank_search_documents(params: WorldBankSearchInput) -> str:
         response = await _make_api_request(query_params)
         
         # Extract results
+        # The API returns documents as a dictionary where keys are document IDs (e.g., "D33234291")
+        # We need to extract the values and filter out the 'facets' key if present
         documents = response.get('documents', {})
-        docs_list = documents.get('docs', [])
-        total = documents.get('numFound', 0)
+        docs_list = [doc for key, doc in documents.items() if key != 'facets' and isinstance(doc, dict)]
+        total = response.get('total', 0)  # Total is at the top level, not inside documents
         
         # Handle no results case
         if total == 0:
@@ -704,8 +706,9 @@ async def worldbank_get_document_details(params: WorldBankDocumentDetailsInput) 
         response = await _make_api_request(query_params)
         
         # Extract document
+        # The API returns documents as a dictionary where keys are document IDs
         documents = response.get('documents', {})
-        docs_list = documents.get('docs', [])
+        docs_list = [doc for key, doc in documents.items() if key != 'facets' and isinstance(doc, dict)]
         
         if not docs_list:
             return (
@@ -965,9 +968,10 @@ async def worldbank_search_by_project(params: WorldBankProjectSearchInput) -> st
         response = await _make_api_request(query_params)
         
         # Extract results
+        # The API returns documents as a dictionary where keys are document IDs
         documents = response.get('documents', {})
-        docs_list = documents.get('docs', [])
-        total = documents.get('numFound', 0)
+        docs_list = [doc for key, doc in documents.items() if key != 'facets' and isinstance(doc, dict)]
+        total = response.get('total', 0)  # Total is at the root level
         
         # Handle no results
         if total == 0:
