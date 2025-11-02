@@ -1,4 +1,4 @@
-# World Bank MCP Server
+# World Bank Document and Reports MCP Server
 
 An MCP server for accessing the [World Bank's Documents & Reports database](https://documents.worldbank.org/en/publication/documents-reports/api).  
 Provides searching, retrieval, and detailed breakdowns of World Bank documents for LLMs and programmatic use.
