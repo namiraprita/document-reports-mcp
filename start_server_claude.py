@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# claude desktop config json file
 
 import os
 import subprocess
@@ -14,7 +13,8 @@ def start_mcp_server():
     # run the server using uv
     try:
         # using subprocess.run with check=True will raise an exception if the command fails
-        subprocess.run(['uv', 'run', 'server_stdio.py'], check=True)
+        # subprocess.run(['uv', 'run', 'server_stdio.py'], check=True)
+        subprocess.run(['uv', 'run', 'server_stdio_refactored.py'], check=True)
     except subprocess.CalledProcessError as e:
         print(f"Error: Server failed to start with return code {e.returncode}", file=sys.stderr)
         sys.exit(1)
