@@ -36,10 +36,11 @@ document-reports-mcp/
 
 ## Demonstration Video
 
-<video width="100%" controls>
-  <source src="docs/mcp_simulation.mp4" type="video/mp4">
-  Your browser does not support the video tag. [View the video](docs/mcp_simulation.mp4) instead.
-</video>
+Watch the MCP server in action:
+
+**[▶ Watch Demo Video](docs/mcp_simulation.mp4)**
+
+Note: Click the link above to view the demonstration video. GitHub README files don't support embedded video players, but you can download or view the video directly through the link.
 
 ## Quick Documentation Index
 
