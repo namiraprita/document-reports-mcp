@@ -1,23 +1,23 @@
 # World Bank DNR MCP Server Structure
 
-## 📁 New File Structure
+## New File Structure
 
 Your document-reports-mcp now has a similar structure to the data360-mcp repository:
 
 ```
 document-reports-mcp/
-├── start_server_claude.py      # 🆕 Launcher script for Claude Desktop
-├── server_stdio.py              # 🆕 Main server with STDIO transport
-├── server_sse.py                # 🆕 Alternative server with SSE transport
-├── worldbank_dnr_mcp.py         # ✅ Original file (now with uv shebang)
-├── pyproject.toml               # ✅ Updated with SSE dependencies
-├── claude_desktop_config.example.json  # ✅ Updated to use launcher
-└── requirements.txt
+ start_server_claude.py      # Launcher script for Claude Desktop
+ server_stdio.py              # Main server with STDIO transport
+ server_sse.py                # Alternative server with SSE transport
+ worldbank_dnr_mcp.py         # Original file (now with uv shebang)
+ pyproject.toml               # Updated with SSE dependencies
+ claude_desktop_config.example.json  # Updated to use launcher
+ requirements.txt
 ```
 
 ---
 
-## 🎯 What Each File Does
+## What Each File Does
 
 ### 1. **start_server_claude.py** - The Launcher
 **Purpose:** Entry point for Claude Desktop  
@@ -82,7 +82,7 @@ if __name__ == "__main__":
 
 ---
 
-## 🔧 Updated Dependencies (pyproject.toml)
+## Updated Dependencies (pyproject.toml)
 
 **Before:**
 ```toml
@@ -114,7 +114,7 @@ dependencies = [
 
 ---
 
-## 📝 Updated Configuration (claude_desktop_config.example.json)
+## Updated Configuration (claude_desktop_config.example.json)
 
 **Before:**
 ```json
@@ -146,7 +146,7 @@ dependencies = [
 
 ---
 
-## 🚀 How to Use Each Version
+## How to Use Each Version
 
 ### Option 1: For Claude Desktop (Recommended)
 ```json
@@ -179,7 +179,7 @@ uv run worldbank_dnr_mcp.py
 
 ---
 
-## 🧠 The Logic Behind This Structure
+## The Logic Behind This Structure
 
 ### Why Separate Files?
 
@@ -219,27 +219,27 @@ uv run worldbank_dnr_mcp.py
 ```
 
 **Benefits:**
-- ⚡ **Faster**: 10-100x faster than pip
-- 🔒 **Isolated**: Each project has its own environment
-- 🎯 **Automatic**: No manual venv management
-- 🔄 **Reproducible**: Same environment every time
+- **Faster**: 10-100x faster than pip
+- **Isolated**: Each project has its own environment
+- **Automatic**: No manual venv management
+- **Reproducible**: Same environment every time
 
 ---
 
-## 📊 Comparison with data360-mcp
+## Comparison with data360-mcp
 
 | Feature | data360-mcp | worldbank-dnr-mcp (Now) |
 |---------|-------------|-------------------------|
-| Launcher script | ✅ | ✅ |
-| STDIO server | ✅ | ✅ |
-| SSE server | ✅ | ✅ |
-| Resources | ✅ | ❌ (Tools only) |
+| Launcher script |  |  |
+| STDIO server |  |  |
+| SSE server |  |  |
+| Resources |  |  (Tools only) |
 | Port | 8001 | 8002 |
 | Structure | Identical | Identical |
 
 ---
 
-## 🎓 Key Concepts Explained
+## Key Concepts Explained
 
 ### STDIO Transport
 **Think of it like:** A telephone conversation  
@@ -264,7 +264,7 @@ python server_stdio.py  # Old way
 
 ---
 
-## ✅ Next Steps
+## Next Steps
 
 1. **Update your Claude Desktop config** to point to `start_server_claude.py`
 2. **Install dependencies**: Run `uv sync` in the project directory
@@ -273,7 +273,7 @@ python server_stdio.py  # Old way
 
 ---
 
-## 🔍 Troubleshooting
+## Troubleshooting
 
 **If uv command not found:**
 ```bash
@@ -297,14 +297,14 @@ uv run server_stdio.py
 
 ---
 
-## 📚 Summary
+## Summary
 
 You now have a professional, modular MCP server structure that:
-- ✅ Uses modern Python tooling (`uv`)
-- ✅ Supports multiple transport types
-- ✅ Has clean separation of concerns
-- ✅ Includes error handling
-- ✅ Matches industry best practices
-- ✅ Is easy to maintain and extend
+- Uses modern Python tooling (`uv`)
+- Supports multiple transport types
+- Has clean separation of concerns
+- Includes error handling
+- Matches industry best practices
+- Is easy to maintain and extend
 
-The structure mirrors data360-mcp, making it consistent and professional! 🎉
+The structure mirrors data360-mcp, making it consistent and professional! 

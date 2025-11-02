@@ -6,21 +6,21 @@ An MCP server for accessing the World Bank's Documents & Reports database. Provi
 
 ```
 document-reports-mcp/
-├── worldbank_dnr_mcp/          # main package
-│   ├── core.py                 # business logic, models, utilities
-│   ├── factory.py              # server creation and tool registration
-│   ├── parsers.py              # transport-specific response parsers
-│   └── __init__.py             # package exports
-├── server_stdio.py             # STDIO transport server
-├── server_sse.py               # SSE transport server
-├── start_server_claude.py      # launcher for Claude Desktop
-├── pyproject.toml              # project configuration
-├── requirements.txt            # legacy requirements file
-└── docs/                       # documentation
-    ├── API Document.pdf
-    ├── DESIGN_LOGIC.md
-    ├── STRUCTURE_GUIDE.md
-    └── mcp_simulation.mp4      # demonstration video
+ worldbank_dnr_mcp/          # main package
+    core.py                 # business logic, models, utilities
+    factory.py              # server creation and tool registration
+    parsers.py              # transport-specific response parsers
+    __init__.py             # package exports
+ server_stdio.py             # STDIO transport server
+ server_sse.py               # SSE transport server
+ start_server_claude.py      # launcher for Claude Desktop
+ pyproject.toml              # project configuration
+ requirements.txt            # legacy requirements file
+ docs/                       # documentation
+     API Document.pdf
+     DESIGN_LOGIC.md
+     STRUCTURE_GUIDE.md
+     mcp_simulation.mp4      # demonstration video
 ```
 
 ## Project Features
@@ -38,7 +38,7 @@ document-reports-mcp/
 
 Watch the MCP server in action:
 
-**[▶ Watch Demo Video](docs/mcp_simulation.mp4)**
+**[Watch Demo Video](docs/mcp_simulation.mp4)**
 
 Note: Click the link above to view the demonstration video. GitHub README files don't support embedded video players, but you can download or view the video directly through the link.
 
