@@ -1,4 +1,4 @@
-# World Bank MCP Server - Design & Logic Explained
+# Design & Logic Explained
 
 This document explains the **why** behind every design decision in the World Bank MCP server, following Anthropic's MCP builder skills.
 
