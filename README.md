@@ -19,7 +19,8 @@ document-reports-mcp/
 └── docs/                       # documentation
     ├── API Document.pdf
     ├── DESIGN_LOGIC.md
-    └── STRUCTURE_GUIDE.md
+    ├── STRUCTURE_GUIDE.md
+    └── mcp_simulation.mp4      # demonstration video
 ```
 
 ## Project Features
@@ -32,6 +33,13 @@ document-reports-mcp/
 - flexible markdown/json output formats
 - extensive error handling and validation
 - support for both STDIO and SSE transports
+
+## Demonstration Video
+
+<video width="100%" controls>
+  <source src="docs/mcp_simulation.mp4" type="video/mp4">
+  Your browser does not support the video tag. [View the video](docs/mcp_simulation.mp4) instead.
+</video>
 
 ## Quick Documentation Index
 
@@ -70,18 +78,6 @@ pip install -r requirements.txt
 
 2. Restart Claude Desktop
 
-### Running the Server Directly
-
-STDIO server (for CLI and Claude Desktop):
-```bash
-uv run server_stdio.py
-```
-
-SSE server (for web/API clients):
-```bash
-uv run server_sse.py
-```
-Server will be available at `http://localhost:8002`
 
 ### Testing the SSE Server Locally
 
