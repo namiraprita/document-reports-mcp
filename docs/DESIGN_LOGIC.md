@@ -11,7 +11,7 @@ Instead of just wrapping every API endpoint, we designed tools around **workflow
 
 **Example:**
 ```python
-# BAD: Just wrapping API endpoints
+# Just wrapping API endpoints
 @mcp.tool()
 def get_documents_by_query(query: str): ...
 
@@ -129,7 +129,7 @@ async def _make_api_request(params: Dict[str, Any]) -> Dict[str, Any]:
 
 **Why async?**
 ```python
-# BAD: Synchronous blocks the entire server
+# Synchronous blocks the entire server
 def make_request(url):
     response = requests.get(url)  # Blocks
     return response.json()
@@ -152,7 +152,7 @@ async def make_request(url):
 Instead of manual validation, we define constraints once in Pydantic models.
 
 ```python
-# BAD: Manual validation (error-prone, verbose)
+# Manual validation (error-prone, verbose)
 def search(query: str, limit: int):
     if not query:
         raise ValueError("Query required")
@@ -315,7 +315,7 @@ World Bank has millions of documents. Can't return all at once.
 
 **Why prefix with service?**
 ```python
-# BAD: Without prefix
+# Without prefix
 @mcp.tool(name="search_documents")  # Conflicts with other servers!
 
 # GOOD: With prefix
