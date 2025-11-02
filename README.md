@@ -24,6 +24,7 @@ A Model Context Protocol (MCP) server for accessing the World Bank's Documents &
 - [DESIGN_LOGIC.md](docs/DESIGN_LOGIC.md): Core design principles and logic described.
 - [STRUCTURE_GUIDE.md](docs/STRUCTURE_GUIDE.md): Folder and file structure, update logic, configuration.
 - [NEW_API_ANALYSIS.md](docs/NEW_API_ANALYSIS.md): Coverage of edge cases and API responses.
+- [REFACTORING_SUMMARY.md](REFACTORING_SUMMARY.md): Complete refactoring documentation and code quality metrics.
 
 ## How To Use
 

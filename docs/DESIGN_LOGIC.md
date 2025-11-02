@@ -11,7 +11,7 @@ Instead of just wrapping every API endpoint, we designed tools around **workflow
 
 **Example:**
 ```python
-# ❌ Bad: Just wrapping API endpoints
+# BAD: Just wrapping API endpoints
 @mcp.tool()
 def get_documents_by_query(query: str): ...
 
@@ -21,7 +21,7 @@ def get_documents_by_country(country: str): ...
 @mcp.tool()
 def get_documents_by_date(date: str): ...
 
-# ✅ Good: Workflow-oriented tool
+# GOOD: Workflow-oriented tool
 @mcp.tool()
 def worldbank_search_documents(
     query: str,
@@ -118,7 +118,7 @@ Without shared utilities, we'd duplicate code across tools.
 
 **The Solution:**
 ```python
-# ✅ Shared utility - used by all tools
+# GOOD: Shared utility - used by all tools
 async def _make_api_request(params: Dict[str, Any]) -> Dict[str, Any]:
     """Single HTTP client, error handling, JSON parsing"""
     async with httpx.AsyncClient() as client:
@@ -129,12 +129,12 @@ async def _make_api_request(params: Dict[str, Any]) -> Dict[str, Any]:
 
 **Why async?**
 ```python
-# ❌ Synchronous blocks the entire server
+# BAD: Synchronous blocks the entire server
 def make_request(url):
     response = requests.get(url)  # Blocks
     return response.json()
 
-# ✅ Asynchronous allows concurrent requests
+# GOOD: Asynchronous allows concurrent requests
 async def make_request(url):
     async with httpx.AsyncClient() as client:
         response = await client.get(url)  # Non-blocking
@@ -152,7 +152,7 @@ async def make_request(url):
 Instead of manual validation, we define constraints once in Pydantic models.
 
 ```python
-# ❌ Manual validation (error-prone, verbose)
+# BAD: Manual validation (error-prone, verbose)
 def search(query: str, limit: int):
     if not query:
         raise ValueError("Query required")
@@ -162,7 +162,7 @@ def search(query: str, limit: int):
         raise TypeError("Query must be string")
     # ... search logic
 
-# ✅ Pydantic validation (automatic, declarative)
+# GOOD: Pydantic validation (automatic, declarative)
 class SearchInput(BaseModel):
     query: str = Field(..., min_length=1, max_length=500)
     limit: int = Field(default=20, ge=1, le=100)
@@ -315,10 +315,10 @@ World Bank has millions of documents. Can't return all at once.
 
 **Why prefix with service?**
 ```python
-# ❌ Without prefix
+# BAD: Without prefix
 @mcp.tool(name="search_documents")  # Conflicts with other servers!
 
-# ✅ With prefix
+# GOOD: With prefix
 @mcp.tool(name="worldbank_search_documents")  # Unique, clear
 ```
 
@@ -440,28 +440,28 @@ async def worldbank_search_documents(params: SearchInput) -> str:
 
 ### From MCP Best Practices
 
-✅ **Server naming:** `worldbank_mcp` format
-✅ **Tool prefixes:** All tools start with `worldbank_`
-✅ **Response formats:** Support both markdown and JSON
-✅ **Pagination:** Consistent pattern with metadata
-✅ **Character limits:** 25,000 with truncation messages
-✅ **Error handling:** Actionable, educational errors
-✅ **Tool annotations:** Proper hints for all tools
+APPLIED: **Server naming:** `worldbank_mcp` format
+APPLIED: **Tool prefixes:** All tools start with `worldbank_`
+APPLIED: **Response formats:** Support both markdown and JSON
+APPLIED: **Pagination:** Consistent pattern with metadata
+APPLIED: **Character limits:** 25,000 with truncation messages
+APPLIED: **Error handling:** Actionable, educational errors
+APPLIED: **Tool annotations:** Proper hints for all tools
 
 ### From Agent-Centric Design
 
-✅ **Workflow tools:** Not just API wrappers
-✅ **Context efficiency:** Defaults optimize for readability
-✅ **Smart defaults:** Minimize required parameters
-✅ **Composable operations:** Tools work together naturally
+APPLIED: **Workflow tools:** Not just API wrappers
+APPLIED: **Context efficiency:** Defaults optimize for readability
+APPLIED: **Smart defaults:** Minimize required parameters
+APPLIED: **Composable operations:** Tools work together naturally
 
 ### From Python Best Practices
 
-✅ **Type hints:** Throughout the code
-✅ **Async/await:** All I/O operations
-✅ **Pydantic v2:** Modern validation patterns
-✅ **DRY principle:** Shared utilities, no duplication
-✅ **Error handling:** Specific exceptions, clear messages
+APPLIED: **Type hints:** Throughout the code
+APPLIED: **Async/await:** All I/O operations
+APPLIED: **Pydantic v2:** Modern validation patterns
+APPLIED: **DRY principle:** Shared utilities, no duplication
+APPLIED: **Error handling:** Specific exceptions, clear messages
 
 ## Future Enhancements (Ideas)
 
