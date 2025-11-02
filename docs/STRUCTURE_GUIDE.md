@@ -1,9 +1,5 @@
 # World Bank DNR MCP Server Structure
 
-## New File Structure
-
-Your document-reports-mcp now has a similar structure to the data360-mcp repository:
-
 ```
 document-reports-mcp/
  start_server_claude.py      # Launcher script for Claude Desktop
@@ -82,18 +78,8 @@ if __name__ == "__main__":
 
 ---
 
-## Updated Dependencies (pyproject.toml)
+##Dependencies (pyproject.toml)
 
-**Before:**
-```toml
-dependencies = [
-    "mcp>=1.0.0",
-    "httpx>=0.27.0",
-    "pydantic>=2.0.0"
-]
-```
-
-**After:**
 ```toml
 dependencies = [
     "anthropic>=0.8.0",
@@ -106,30 +92,10 @@ dependencies = [
 ]
 ```
 
-**Why the changes:**
-- `fastapi` and `uvicorn`: Required for SSE transport (web server functionality)
-- `anthropic`: Aligns with data360-mcp structure
-- `python-dotenv`: For environment variable management
-- Updated versions to match data360-mcp
-
 ---
 
-## Updated Configuration (claude_desktop_config.example.json)
+##  Configuration (claude_desktop_config.example.json)
 
-**Before:**
-```json
-{
-  "mcpServers": {
-    "worldbank-dnr": {
-      "command": "uv",
-      "args": ["run", "/path/to/worldbank_dnr_mcp.py"],
-      "cwd": "/path/to/document-reports-mcp"
-    }
-  }
-}
-```
-
-**After:**
 ```json
 {
   "mcpServers": {
@@ -145,36 +111,6 @@ dependencies = [
 **Why:** Now uses the launcher script for better error handling and cleaner startup.
 
 ---
-
-## How to Use Each Version
-
-### Option 1: For Claude Desktop (Recommended)
-```json
-// In your Claude Desktop config:
-{
-  "command": "uv",
-  "args": ["run", "/full/path/to/start_server_claude.py"],
-  "cwd": "/full/path/to/document-reports-mcp"
-}
-```
-
-### Option 2: Run STDIO Server Directly
-```bash
-cd /path/to/document-reports-mcp
-uv run server_stdio.py
-```
-
-### Option 3: Run SSE Server for Web Access
-```bash
-cd /path/to/document-reports-mcp
-uv run server_sse.py
-```
-Then access at: `http://localhost:8002`
-
-### Option 4: Run Original Standalone Script
-```bash
-cd /path/to/document-reports-mcp
-uv run worldbank_dnr_mcp.py
 ```
 
 ---
@@ -224,18 +160,6 @@ uv run worldbank_dnr_mcp.py
 - **Automatic**: No manual venv management
 - **Reproducible**: Same environment every time
 
----
-
-## Comparison with data360-mcp
-
-| Feature | data360-mcp | worldbank-dnr-mcp (Now) |
-|---------|-------------|-------------------------|
-| Launcher script |  |  |
-| STDIO server |  |  |
-| SSE server |  |  |
-| Resources |  |  (Tools only) |
-| Port | 8001 | 8002 |
-| Structure | Identical | Identical |
 
 ---
 
@@ -297,14 +221,3 @@ uv run server_stdio.py
 
 ---
 
-## Summary
-
-You now have a professional, modular MCP server structure that:
-- Uses modern Python tooling (`uv`)
-- Supports multiple transport types
-- Has clean separation of concerns
-- Includes error handling
-- Matches industry best practices
-- Is easy to maintain and extend
-
-The structure mirrors data360-mcp, making it consistent and professional! 
